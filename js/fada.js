@@ -227,10 +227,10 @@
   }
 
   function findServico(text) {
-    const t = norm(text);
+    const t = " " + norm(text) + " ";
     const map = [
-      ["Obstetrícia / Ecografia 4D", ["eco", "4d", "obstet", "gravid", "pre natal", "bebe"]],
       ["Ginecologia", ["gineco", "mulher"]],
+      ["Obstetrícia / Ecografia 4D", ["ecograf", " eco ", "4d", "obstet", "gravid", "pre natal", "bebe"]],
       ["Ortodontia", ["orto", "aparelho"]],
       ["Próteses dentárias", ["protese", "dentadura"]],
       ["Estomatologia", ["estoma", "dente", "dentista", "boca"]],
@@ -417,7 +417,7 @@
       if (history.length) { history.forEach((m) => render(m, false)); setChips(store.get(KEY + "_chips") || MENU); }
       else welcome();
     }
-    if (prefill) send(prefill);
+    if (prefill) queue.then(() => send(prefill));
     setTimeout(() => input.focus({ preventScroll: true }), 250);
   }
   function close() {
