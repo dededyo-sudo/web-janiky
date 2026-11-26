@@ -1,5 +1,5 @@
 /* =========================================================
-   Fada — assistente virtual da Clínica Janiky
+   Dra. Fada — médica dentista e assistente virtual da Clínica Janiky
    Chatbot por regras (sem servidor). Para actualizar dados,
    edite apenas o objecto CLINICA abaixo.
    ========================================================= */
@@ -173,8 +173,8 @@
     },
     {
       id: "quem",
-      kw: ["quem es", "quem e voce", "quem e vc", "teu nome", "seu nome", "es um robo", "e um robo", "fada"],
-      reply: () => ({ html: "Sou a <strong>Fada</strong> ✨, a assistente virtual da Clínica Janiky. Ajudo com marcações, serviços, horários e contactos. Para questões médicas, a nossa equipa está sempre disponível.", chips: MENU.slice(0, 4) })
+      kw: ["quem es", "quem e voce", "quem e vc", "teu nome", "seu nome", "es um robo", "e um robo", "fada", "doutora", "dra"],
+      reply: () => ({ html: "Sou a <strong>Dra. Fada</strong> 🦷, médica dentista e assistente virtual da Clínica Janiky. Ajudo com marcações, serviços, horários e contactos. Por aqui dou apenas informações gerais — para avaliar o seu caso, a nossa equipa está sempre disponível.", chips: MENU.slice(0, 4) })
     },
     {
       id: "adeus",
@@ -184,7 +184,7 @@
     {
       id: "obrigado",
       kw: ["obrigad", "obg", "valeu", "agradeco", "khanimambo", "kanimambo"],
-      reply: () => ({ html: pick(["De nada! 💙 Vai ficar tudo bem.", "Foi um prazer ajudar! 😊", "Sempre às ordens! ✨"]) + " Posso ajudar em mais alguma coisa?", chips: ["Marcar consulta", "Não, obrigado"] })
+      reply: () => ({ html: pick(["De nada! 💙 Vai ficar tudo bem.", "Foi um prazer ajudar! 😊", "Sempre às ordens! 😊"]) + " Posso ajudar em mais alguma coisa?", chips: ["Marcar consulta", "Não, obrigado"] })
     },
     {
       id: "ola",
@@ -311,9 +311,9 @@
       }
       case "confirmar": {
         if (/^(sim|s|ok|confirmo|certo|enviar|sim enviar|esta|esta certo)/.test(t)) {
-          const msg = "Olá Clínica Janiky! Gostaria de marcar uma consulta (pedido feito através da Fada no site).\n\n*Nome:* " + d.nome + "\n*Telefone:* " + d.telefone + "\n*Serviço:* " + d.servico + "\n*Data preferida:* " + d.data + " (" + d.periodo + ")";
+          const msg = "Olá Clínica Janiky! Gostaria de marcar uma consulta (pedido feito através da Dra. Fada no site).\n\n*Nome:* " + d.nome + "\n*Telefone:* " + d.telefone + "\n*Serviço:* " + d.servico + "\n*Data preferida:* " + d.data + " (" + d.periodo + ")";
           flow = null;
-          bot("Perfeito! ✨ Toque no botão para enviar o pedido à recepção pelo WhatsApp. A equipa confirma a hora consigo.<br><a class='msg__btn' target='_blank' rel='noopener' href='" + waLink(msg) + "'>💬 Enviar marcação</a><br><small>Vai ficar tudo bem! 💙</small>", ["Outra pergunta", "Localização"]);
+          bot("Perfeito! ✅ Toque no botão para enviar o pedido à recepção pelo WhatsApp. A equipa confirma a hora consigo.<br><a class='msg__btn' target='_blank' rel='noopener' href='" + waLink(msg) + "'>💬 Enviar marcação</a><br><small>Vai ficar tudo bem! 💙</small>", ["Outra pergunta", "Localização"]);
         } else { startBooking(); }
         return true;
       }
@@ -325,7 +325,7 @@
   const root = $("fada"), panel = $("fadaPanel"), msgs = $("fadaMsgs"), chips = $("fadaChips");
   const form = $("fadaForm"), input = $("fadaText"), launcher = $("fadaLauncher"), bubble = $("fadaBubble");
   if (!root) return;
-  const KEY = "janiky_fada_hist_v1";
+  const KEY = "janiky_fada_hist_v2";
   let history = store.get(KEY) || [];
 
   function render(m, animate) {
@@ -385,7 +385,7 @@
     if (it) { const r = it.reply(text); if (r) bot(r.html, r.chips); return; }
     const s = findServico(text);
     if (s) { bot("Sobre <strong>" + s + "</strong>: " + CLINICA.servicos[s] + "<br>Quer marcar?", ["Marcar consulta", "Preços"]); return; }
-    bot(pick(["Hmm, não tenho a certeza de ter percebido. 🤔", "Desculpe, ainda estou a aprender! 🧚‍♀️"]) +
+    bot(pick(["Hmm, não tenho a certeza de ter percebido. 🤔", "Desculpe, não percebi bem. 🙂"]) +
       " Posso ajudar com marcações, serviços, preços, horário e localização — ou passo-o para a recepção:<br><a class='msg__btn' target='_blank' rel='noopener' href='" + waLink("Olá! Tenho uma pergunta: " + text) + "'>💬 Perguntar à recepção</a>", MENU);
   }
 
@@ -404,7 +404,7 @@
   }
 
   function welcome() {
-    bot(saudacao() + "! Eu sou a <strong>Fada</strong> ✨, a assistente virtual da <strong>Clínica Janiky</strong>.");
+    bot(saudacao() + "! Eu sou a <strong>Dra. Fada</strong> 🦷, médica dentista e assistente virtual da <strong>Clínica Janiky</strong>.");
     bot("Posso ajudar a marcar uma consulta, falar dos nossos serviços, preços, horário ou localização. Como posso ajudar?", MENU);
   }
 
